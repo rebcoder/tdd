@@ -5,8 +5,14 @@ public class StringCalculator {
         if (numbers.isEmpty()) {
             return 0;
         }
-        numbers = numbers.replace("\n", ",");
-        String[] numArray = numbers.split(",");
+        String delimiter = ",";
+        if (numbers.startsWith("//")) {
+            String[] parts = numbers.split("\n", 2);
+            delimiter = parts[0].substring(2);
+            numbers = parts[1];
+        }
+        numbers = numbers.replace("\n", delimiter);
+        String[] numArray = numbers.split(delimiter);
         int sum = 0;
         for (String num : numArray) {
             sum += Integer.parseInt(num);
